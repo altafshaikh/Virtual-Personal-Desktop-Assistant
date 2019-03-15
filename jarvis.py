@@ -3,6 +3,18 @@ import subprocess
 import sys
 from pygame import mixer
 from Voice import speakmodule
+#from sql_lite import Connection
+import os
+#import my_sqlite as sq
+
+# execute_query = Connection()
+# conn = execute_query.connect()
+# execute_query.create_table(conn)
+# dirname = os.path.dirname(__file__)
+#change this if you are using windows
+# path=r"/root/Desktop/Jarvis/audio/"
+# filename=''
+# sq.create_table()
 
 
 def main():
@@ -11,16 +23,40 @@ def main():
 		mode = sys.argv
 		if mode[1][1:]=="text":
 			msg="Initializing Text Mode"
+			#print(msg)
+			
+			#audio_path = sq.select(msg)
+			# audio_path=[]
+			
+			# if audio_path:
+			# 	temp = path+msg+str(len(msg[0:]))+'.mp3'
+			# 	filename = os.path.join(dirname,temp) 
+			# 	#print(filename)
+			# 	flag= sq.insert(msg,filename)
+			# 	speakmodule.speak([msg],len(msg[0:]),mixer)
+			# 	print(msg)
+			# 	start_text_prompt()
+			# else:
+				# speakmodule.paly(audio_path,mixer)
+				# print(msg)
+				# start_text_prompt()
 			speakmodule.speak([msg],len(msg[0:]),mixer)
-			print(msg)
+			#print(msg)
 			start_text_prompt()
 
+				
+				
+
 		if mode[1][1:]=="voice":
-			print("Initializing Voice Mode")
+			#print("Initializing Voice Mode")
+			msg="Initializing Voice Mode"
+			speakmodule.speak([msg],len(msg[0:]),mixer)
 			start_listening()
 
 		if mode[1][1:]=="remote":
-			print("Initializing Remote Mode")
+			#print("Initializing Remote Mode")
+			msg="Initializing Remote Mode"
+			speakmodule.speak([msg],len(msg[0:]),mixer)
 			start_remote_prompt()
 
 	except Exception:
@@ -55,6 +91,7 @@ def usage():
 	"""
 	print (usage)
 	sys.exit(1)
+	
 
 if __name__ == '__main__':
 	main()

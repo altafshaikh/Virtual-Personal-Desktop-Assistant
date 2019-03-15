@@ -22,11 +22,13 @@ class Brain():
 		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 			"""
 		print (welcome_message)
+		msg = "Hello, I am jarvis How can i help you"
+		speakmodule.speak([msg],len(msg[0:]),mixer)
 
 	def text_mode(self):
 		self.print_welcome()
-		msg="Ready For your Command"
-		#speakmodule.speak([msg],len(msg[0:]),mixer)
+		msg="At Your Service Sir"
+		speakmodule.speak([msg],len(msg[0:]),mixer)
 		CC = CheckCommand()
 		while 1:
 			cmd = input("> ")
@@ -39,7 +41,8 @@ class Brain():
 			
 	def voice_mode(self):
 		self.print_welcome()
-		#ears = Ears()
+		msg="At Your Service Sir"
+		speakmodule.speak([msg],len(msg[0:]),mixer)
 		CC = CheckCommand()
 
 		while 1:
@@ -57,9 +60,14 @@ class Brain():
 				print (message)
 				task=CC.check(message)
 				if task == True:
-					print("What else i can do for you")
+					#print("What else i can do for you")
+					msg="What else i can do for you"
+					speakmodule.speak([msg],len(msg[0:]),mixer)
 				if task == False:
-					print("Task is Not Complete, Please Can U Say it Again!")
+					#print("Task is Not Complete, Please Can U Say it Again!")
+					msg="Task is Not Complete, Please Can U Say it Again!"
+					speakmodule.speak([msg],len(msg[0:]),mixer)
+
 	
 			except sr.UnknownValueError:
 				print("$could not understand audio")

@@ -1,91 +1,98 @@
 import sqlite3
 
-def connection():
+class Connection():
+	
 	#create database if not exixts
-	conn = sqlite3.connect('sqlite.db')
+	def connect(self):
+		conn = sqlite3.connect('sqlite.db')
+		if conn:
+			print("Opened database successfully")
+			return conn
+		else:
+			print("Error in opening the Database"+conn)
 
-	print("Opened database successfully")
 
-#create table
-def crete_table():
-	conn.execute('''CREATE TABLE COMPANY
-			 (ID INT PRIMARY KEY     NOT NULL,
-			 NAME           TEXT    NOT NULL,
-			 AGE            INT     NOT NULL,
-			 ADDRESS        CHAR(50),
-			 SALARY         REAL);''')
+	#create table
+	def create_table(self,conn):
+		conn.execute('''CREATE TABLE if not exists PATHS
+				 (ID INT PRIMARY KEY  NOT NULL,
+				 COMMAND        TEXT    NOT NULL,
+				 AUDIO_PATH     TEXT     NOT NULL
+				 );''')
+	
+		print("Table Pass")
+		return True
+		
+	#insert values into tabels
+	def insert(self,cmd,path,conn):
+		query = "INSERT INTO PATHS (COMMAND,AUDIO_PATH) \
+			VALUES 1,%s,%s" % (cmd,path)
+		
+		conn.execute(query)	
+		conn.commit()
+		print("Records Inserted successfully")
+		
 
-	print("Table created successfully")
 
-#insert values into tabels
-def insert():
-	conn.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
-		VALUES (1, 'Paul', 32, 'California', 20000.00 )")
+	def select(self,cmd,conn):
+		query = "SELECT ID, COMMAND, AUDIO_PATH from PATHS where COMMAND = '%s'" % (cmd)
+		print(query)
+		cursor = conn.execute()
+		print(cursor)
+		path=[]
+		if cursor :
+			for row in cursor:
+				print("ID = ", row[0])
+				print("Command = ", row[1])
+				print("Audio PAth = ", row[2], "\n")
+			path = row[2]
+			print("Operation done successfully")
+			return path[0]
+		else:
+			return path
 
-	conn.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
-		VALUES (2, 'Allen', 25, 'Texas', 15000.00 )")
+	def update(self,conn):
+		conn.execute("UPDATE COMPANY set SALARY = 25000.00 where ID = 1")
+		conn.commit
+		print("Total number of rows updated :", conn.total_changes)
 
-	conn.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
-		VALUES (3, 'Teddy', 23, 'Norway', 20000.00 )")
+		cursor = conn.execute("SELECT id, name, address, salary from COMPANY")
+		for row in cursor:
+	   		print("ID = ", row[0])
+	   		print("NAME = ", row[1])
+	   		print("ADDRESS = ", row[2])
+	   		print("SALARY = ", row[3], "\n")
 
-	conn.execute("INSERT INTO COMPANY (ID,NAME,AGE,ADDRESS,SALARY) \
-		VALUES (4, 'Mark', 25, 'Rich-Mond ', 65000.00 )")
+		print("Operation done successfully")
 
-	conn.commit()
-	print("Records created successfully")
+	def delete(self,conn):
+		#conn.execute("DELETE from COMPANY where ID = 2;")
+		conn.execute("DELETE from COMPANY")
+		conn.commit()
+		print("Total number of rows deleted :", conn.total_changes)
 
-def select():
-	cursor = conn.execute("SELECT id, name, address, salary from COMPANY")
-	if cursor:
-		print("Hello")
-	for row in cursor:
-		print("ID = ", row[0])
-		print("NAME = ", row[1])
-		print("ADDRESS = ", row[2])
-		print("SALARY = ", row[3], "\n")
+		cursor = conn.execute("SELECT id, name, address, salary from COMPANY")
+		for row in cursor:
+	   		print("ID = ", row[0])
+	   		print("NAME = ", row[1])
+	   		print("ADDRESS = ", row[2])
+	   		print("SALARY = ", row[3], "\n")
 
-	print("Operation done successfully")
+		print("Operation done successfully")
 
-def update():
-	conn.execute("UPDATE COMPANY set SALARY = 25000.00 where ID = 1")
-	conn.commit
-	print("Total number of rows updated :", conn.total_changes)
+	def drop(self,conn):
+		dropTableStatement = "DROP TABLE COMPANY"
 
-	cursor = conn.execute("SELECT id, name, address, salary from COMPANY")
-	for row in cursor:
-   		print("ID = ", row[0])
-   		print("NAME = ", row[1])
-   		print("ADDRESS = ", row[2])
-   		print("SALARY = ", row[3], "\n")
+		conn.execute(dropTableStatement)
+		print("Drop table successfully")
 
-	print("Operation done successfully")
+	def close(self,conn):
+		conn.close()
 
-def delete():
-	#conn.execute("DELETE from COMPANY where ID = 2;")
-	conn.execute("DELETE from COMPANY")
-	conn.commit()
-	print("Total number of rows deleted :", conn.total_changes)
+	#create_table()
+	#insert()
+	#select()
+	#update()
+	#delete()
+	#drop()
 
-	cursor = conn.execute("SELECT id, name, address, salary from COMPANY")
-	for row in cursor:
-   		print("ID = ", row[0])
-   		print("NAME = ", row[1])
-   		print("ADDRESS = ", row[2])
-   		print("SALARY = ", row[3], "\n")
-
-	print("Operation done successfully")
-
-def drop():
-	dropTableStatement = "DROP TABLE COMPANY"
-
-	conn.execute(dropTableStatement)
-	print("Drop table successfully")
-
-#crete_table()
-#insert()
-#select()
-#update()
-#delete()
-#drop()
-
-conn.close()

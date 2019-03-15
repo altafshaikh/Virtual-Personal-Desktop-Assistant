@@ -10,7 +10,7 @@ def speak(rand,n,mixer):
     #change this if you are using windows
     path=r"/root/Desktop/Jarvis/audio/"+text+str(n)+'.mp3'
     filename = os.path.join(dirname,path) 
-    print(filename)                
+    #print(filename)                
     tts.save(filename)
 
     mixer.init()
@@ -28,3 +28,7 @@ def wifi():
             pass
         return False
 
+def play(filename,mixer):
+    mixer.init()
+    mixer.music.load(filename)
+    mixer.music.play()

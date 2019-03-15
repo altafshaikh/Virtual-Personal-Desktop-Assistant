@@ -32,8 +32,8 @@ class CheckCommand():
             sys.exit(1)
             
         if ('hello') in message or ('hi') in message:
-            rand = ['Wellcome to Jarvis virtual intelligence project. At your service sir.',
-            'Hi, How are You?']
+            rand = ['Wellcome to Jarvis virtual intelligence System. At your service sir.',
+            'Hi, How are You?','At your service sir']
             #rand=random.choice(rand)
             speakmodule.speak(rand,n,mixer)
             time.sleep(5)
@@ -53,7 +53,7 @@ class CheckCommand():
             return True
 
         if  ('how are you') in message or ('and you') in message or ('are you okay') in message:
-            rand = ['Fine thank you']
+            rand = ['Fine thank you','Fine sir']
             #rand=random.choice(rand)
             speakmodule.speak(rand,n,mixer)
             return True
@@ -71,7 +71,7 @@ class CheckCommand():
             return True
 
 
-        if ('wi-fi') in message:  
+        if ('wifi') in message:  
             REMOTE_SERVER = "www.google.com"
             speakmodule.wifi()
             rand = ['We are connected']
@@ -147,12 +147,31 @@ class CheckCommand():
             return True
 
         if ('music') in message:
-            mus = random.choice(glob.glob(doss + "\\music" + "\\*.mp3"))
+            #print(glob.glob(doss + "\\music" + "\\*.mp3"))
+            #mus = random.choice(glob.glob(doss + "\\music" + "\\*.mp3"))
             #os.system('chown -R user-id:group-id mus')
-            os.system('start ' + mus)
-            rand = ['start playing']
+            #os.system('start ' + mus)
+            dirname = os.path.dirname(__file__)
+            #change this if you are using windows
+            path=r"/root/Desktop/Jarvis/music/NaJa.mp3"
+            filename = os.path.join(dirname,path) 
+
+            rand = ['playing music']
             #rand=random.choice(rand)
             speakmodule.speak(rand,n,mixer)
+            time.sleep(5)
+
+            mixer.init()
+            mixer.music.load(filename)
+            mixer.music.play()
+
+            return True
+        if ('pause') in message:
+            mixer.music.pause()
+            return True
+
+        if ('resume') in message:
+            mixer.music.unpause()
             return True
 
         if ('what time') in message:
