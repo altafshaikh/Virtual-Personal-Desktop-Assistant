@@ -3,18 +3,15 @@ import subprocess
 import sys
 from pygame import mixer
 from Voice import speakmodule
-#from sql_lite import Connection
 import os
-#import my_sqlite as sq
+import mysqlite as sq
+import time
 
-# execute_query = Connection()
-# conn = execute_query.connect()
-# execute_query.create_table(conn)
-# dirname = os.path.dirname(__file__)
+dirname = os.path.dirname(__file__)
 #change this if you are using windows
-# path=r"/root/Desktop/Jarvis/audio/"
-# filename=''
-# sq.create_table()
+path=r"/root/Desktop/Jarvis/audio/"
+filename=''
+sq.create_table()
 
 
 def main():
@@ -23,29 +20,23 @@ def main():
 		mode = sys.argv
 		if mode[1][1:]=="text":
 			msg="Initializing Text Mode"
-			#print(msg)
 			
-			#audio_path = sq.select(msg)
-			# audio_path=[]
-			
-			# if audio_path:
-			# 	temp = path+msg+str(len(msg[0:]))+'.mp3'
-			# 	filename = os.path.join(dirname,temp) 
-			# 	#print(filename)
-			# 	flag= sq.insert(msg,filename)
-			# 	speakmodule.speak([msg],len(msg[0:]),mixer)
-			# 	print(msg)
-			# 	start_text_prompt()
-			# else:
-				# speakmodule.paly(audio_path,mixer)
-				# print(msg)
-				# start_text_prompt()
-			speakmodule.speak([msg],len(msg[0:]),mixer)
-			#print(msg)
-			start_text_prompt()
-
-				
-				
+			audio_path=sq.select(msg)
+			if audio_path:
+				#print("i am here")
+				mixer.init()
+				mixer.music.load(audio_path)
+				mixer.music.play()
+				time.sleep(5)
+				#print(msg)
+				start_text_prompt()				
+			else:
+				temp = path+msg+str(len(msg[0:]))+'.mp3'
+				filename = os.path.join(dirname,temp) 
+				flag= sq.insert(msg,filename)
+				speakmodule.speak([msg],len(msg[0:]),mixer)
+				#print(msg)
+				start_text_prompt()
 
 		if mode[1][1:]=="voice":
 			#print("Initializing Voice Mode")

@@ -39,9 +39,11 @@ def select(cmd):
 	rows=cur.fetchall()
 	if rows==[]:
 		print("Is not available in table")
+		return False
 	else:
 		print("Is available in table")
+		return rows[0][2]
 
-create_table()
-insert(r'hey3',r'C:\Users\pratiksha shetty\Desktop\Jarvis-artificial-intelligence-master\response\no hey3.mp3')
-select("hey")
+#create_table()
+#insert(r'hey3',r'C:\Users\pratiksha shetty\Desktop\Jarvis-artificial-intelligence-master\response\no hey3.mp3')
+#select("hey")

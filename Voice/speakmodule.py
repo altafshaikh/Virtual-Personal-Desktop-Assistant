@@ -28,7 +28,8 @@ def wifi():
             pass
         return False
 
-def play(filename,mixer):
-    mixer.init()
-    mixer.music.load(filename)
-    mixer.music.play()
+# def play(filename,mixer):
+#     mixer.init()
+#     mixer.music.load(filename)
+#     mixer.music.play()
+#     return True
