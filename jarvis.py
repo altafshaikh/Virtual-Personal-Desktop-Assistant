@@ -39,16 +39,43 @@ def main():
 				start_text_prompt()
 
 		if mode[1][1:]=="voice":
-			#print("Initializing Voice Mode")
+			
 			msg="Initializing Voice Mode"
-			speakmodule.speak([msg],len(msg[0:]),mixer)
-			start_listening()
+			audio_path=sq.select(msg)
+			if audio_path:
+				#print("i am here")
+				mixer.init()
+				mixer.music.load(audio_path)
+				mixer.music.play()
+				time.sleep(5)
+				#print(msg)
+				start_listening()			
+			else:
+				temp = path+msg+str(len(msg[0:]))+'.mp3'
+				filename = os.path.join(dirname,temp) 
+				flag= sq.insert(msg,filename)
+				speakmodule.speak([msg],len(msg[0:]),mixer)
+				#print("Initializing Voice Mode")
+				start_listening()
 
 		if mode[1][1:]=="remote":
 			#print("Initializing Remote Mode")
 			msg="Initializing Remote Mode"
-			speakmodule.speak([msg],len(msg[0:]),mixer)
-			start_remote_prompt()
+			audio_path=sq.select(msg)
+			if audio_path:
+				#print("i am here")
+				mixer.init()
+				mixer.music.load(audio_path)
+				mixer.music.play()
+				time.sleep(5)
+				#print(msg)
+				start_remote_prompt()				
+			else:
+				temp = path+msg+str(len(msg[0:]))+'.mp3'
+				filename = os.path.join(dirname,temp) 
+				flag= sq.insert(msg,filename)
+				speakmodule.speak([msg],len(msg[0:]),mixer)
+				start_remote_prompt()
 
 	except Exception:
 		usage()
