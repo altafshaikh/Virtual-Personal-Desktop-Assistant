@@ -1,14 +1,20 @@
 from pygame import mixer
-from Voice import speakmodule
-from actions.check_cmd import CheckCommand
 import speech_recognition as sr
-#from Ears.ears import Ears
+import os
+import time
+
+from actions.check_cmd import CheckCommand
+from actions import check_audio
+from Voice import speakmodule
+
+
+dirname = os.path.dirname(__file__)
+#change this if you are using windows
+path=r"/root/Desktop/Jarvis/audio/"
+filename=''
 
 
 class Brain():
-
-	# def __init_(self):
-	# 	self.print_welcome()
 
 	def print_welcome(self):
 		
@@ -23,30 +29,31 @@ class Brain():
 			"""
 		print (welcome_message)
 		msg = "Hello, I am jarvis How can i help you"
-		speakmodule.speak([msg],len(msg[0:]),mixer)
+		check_audio.check(msg)
 
 	def text_mode(self):
 		self.print_welcome()
 		msg="At Your Service Sir"
-		speakmodule.speak([msg],len(msg[0:]),mixer)
+		check_audio.check(msg)
 		CC = CheckCommand()
 		while 1:
 			cmd = input("> ")
-			print(cmd)
+			#print(cmd)
 			task = CC.check(cmd)
 			if task == True:
-				print("What else i can do for you")
+				msg="What else i can do for you"
+				check_audio.check(msg)
 			if task == False:
-				print("Task is Not Complete, Please Can U type it Again!")
+				msg="Task is Not Complete, Please Can U Say it Again!"
+				check_audio.check(msg)
 			
 	def voice_mode(self):
 		self.print_welcome()
 		msg="At Your Service Sir"
-		speakmodule.speak([msg],len(msg[0:]),mixer)
+		check_audio.check(msg)
 		CC = CheckCommand()
 
 		while 1:
-			#cmd = ears.listen()
 			r = sr.Recognizer()
 			with sr.Microphone() as source:
 				audio = r.adjust_for_ambient_noise(source) 
@@ -60,15 +67,12 @@ class Brain():
 				print (message)
 				task=CC.check(message)
 				if task == True:
-					#print("What else i can do for you")
 					msg="What else i can do for you"
-					speakmodule.speak([msg],len(msg[0:]),mixer)
+					check_audio.check(msg)
 				if task == False:
-					#print("Task is Not Complete, Please Can U Say it Again!")
 					msg="Task is Not Complete, Please Can U Say it Again!"
-					speakmodule.speak([msg],len(msg[0:]),mixer)
+					check_audio.check(msg)
 
-	
 			except sr.UnknownValueError:
 				print("$could not understand audio")
 			except sr.RequestError as e:

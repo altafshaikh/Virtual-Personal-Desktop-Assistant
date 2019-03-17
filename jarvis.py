@@ -1,16 +1,14 @@
-from Brain.brain import Brain
 import subprocess
 import sys
 from pygame import mixer
-from Voice import speakmodule
 import os
-import mysqlite as sq
 import time
 
-dirname = os.path.dirname(__file__)
-#change this if you are using windows
-path=r"/root/Desktop/Jarvis/audio/"
-filename=''
+from Brain.brain import Brain
+from MySqlite import mysqlite as sq
+from Voice import speakmodule
+from actions import check_audio
+
 sq.create_table()
 
 
@@ -20,62 +18,19 @@ def main():
 		mode = sys.argv
 		if mode[1][1:]=="text":
 			msg="Initializing Text Mode"
-			
-			audio_path=sq.select(msg)
-			if audio_path:
-				#print("i am here")
-				mixer.init()
-				mixer.music.load(audio_path)
-				mixer.music.play()
-				time.sleep(5)
-				#print(msg)
-				start_text_prompt()				
-			else:
-				temp = path+msg+str(len(msg[0:]))+'.mp3'
-				filename = os.path.join(dirname,temp) 
-				flag= sq.insert(msg,filename)
-				speakmodule.speak([msg],len(msg[0:]),mixer)
-				#print(msg)
-				start_text_prompt()
+			check_audio.check(msg)
+			start_text_prompt()
 
 		if mode[1][1:]=="voice":
-			
 			msg="Initializing Voice Mode"
-			audio_path=sq.select(msg)
-			if audio_path:
-				#print("i am here")
-				mixer.init()
-				mixer.music.load(audio_path)
-				mixer.music.play()
-				time.sleep(5)
-				#print(msg)
-				start_listening()			
-			else:
-				temp = path+msg+str(len(msg[0:]))+'.mp3'
-				filename = os.path.join(dirname,temp) 
-				flag= sq.insert(msg,filename)
-				speakmodule.speak([msg],len(msg[0:]),mixer)
-				#print("Initializing Voice Mode")
-				start_listening()
+			check_audio.check(msg)
+			start_listening()
 
 		if mode[1][1:]=="remote":
-			#print("Initializing Remote Mode")
 			msg="Initializing Remote Mode"
+			check_audio.check(msg)
 			audio_path=sq.select(msg)
-			if audio_path:
-				#print("i am here")
-				mixer.init()
-				mixer.music.load(audio_path)
-				mixer.music.play()
-				time.sleep(5)
-				#print(msg)
-				start_remote_prompt()				
-			else:
-				temp = path+msg+str(len(msg[0:]))+'.mp3'
-				filename = os.path.join(dirname,temp) 
-				flag= sq.insert(msg,filename)
-				speakmodule.speak([msg],len(msg[0:]),mixer)
-				start_remote_prompt()
+			start_remote_prompt()
 
 	except Exception:
 		usage()
