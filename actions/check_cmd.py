@@ -11,6 +11,7 @@ import glob
 import time
 
 from actions import check_audio
+from actions import mail
 from Voice import speakmodule
 
 
@@ -114,40 +115,6 @@ class CheckCommand():
             #speakmodule.speak(rand,n,mixer)
             return True
 
-        # if message != ('start music') and ('start') in message:   
-        #     query = message
-        #     stopwords = ['start']
-        #     querywords = query.split()
-        #     resultwords  = [word for word in querywords if word.lower() not in stopwords]
-        #     result = ' '.join(resultwords)
-        #     dirname = os.path.dirname(__file__)
-        #     #change this if you are using windows
-        #     path=r"/root/Desktop/Jarvis/music/"+result+".mp3"
-        #     filename = os.path.join(dirname,path) 
-        #     rand = [('starting '+result)]
-        #     msg = self.random_text(rand)
-        #     check_audio.check(msg)
-        #     #speakmodule.speak(rand,n,mixer)
-
-        #     time.sleep(5)
-        #     mixer.init()
-        #     mixer.music.load(filename)
-        #     mixer.music.play()
-        #     return True
-
-        # if message != ('stop music') and ('stop') in message:
-        #     query = message
-        #     stopwords = ['stop']
-        #     querywords = query.split()
-        #     resultwords  = [word for word in querywords if word.lower() not in stopwords]
-        #     result = ' '.join(resultwords)
-        #     os.system('taskkill /im ' + result + '.exe /f')
-        #     rand = [('stopping '+result)]
-        #     msg = self.random_text(rand)
-        #     check_audio.check(msg)
-        #     #speakmodule.speak(rand,n,mixer)
-        #     return True
-
         if ('install') in message:
             query = message
             stopwords = ['install']
@@ -160,15 +127,6 @@ class CheckCommand():
             #speakmodule.speak(rand,n,mixer)
             os.system('python -m pip install ' + result)
             return True
-
-
-        # if ('sleep mode') in message:
-        #     rand = ['good night']
-        #     msg = self.random_text(rand)
-        #     check_audio.check(msg)
-        #     #speakmodule.speak(rand,n,mixer)
-        #     os.system('rundll32.exe powrprof.dll,SetSuspendState 0,1,0')
-        #     return True
 
         if ('music') in message:
             dirname = os.path.dirname(__file__)
@@ -216,3 +174,60 @@ class CheckCommand():
             check_audio.check(msg)
             #speakmodule.speak(rand,n,mixer)
             return True
+
+        if ("send mail") in message:
+            to = input("Enter Receiver Mail")
+            msg = input("Write Message")
+            subject = input("Enter Subject")
+
+            rand =["sending mail","please wait sending your mail"]
+            msg = self.random_text(rand)
+            check_audio.check(msg)
+            mail.send_mail(to,msg,subject)
+
+            msg = "Your Mail Is Sent"
+            check_audio.check(msg)
+            time.sleep(5)
+            return True
+
+        #if ('sleep mode') in message:
+        #     rand = ['good night']
+        #     msg = self.random_text(rand)
+        #     check_audio.check(msg)
+        #     #speakmodule.speak(rand,n,mixer)
+        #     os.system('rundll32.exe powrprof.dll,SetSuspendState 0,1,0')
+        #     return True
+
+                # if message != ('start music') and ('start') in message:   
+        #     query = message
+        #     stopwords = ['start']
+        #     querywords = query.split()
+        #     resultwords  = [word for word in querywords if word.lower() not in stopwords]
+        #     result = ' '.join(resultwords)
+        #     dirname = os.path.dirname(__file__)
+        #     #change this if you are using windows
+        #     path=r"/root/Desktop/Jarvis/music/"+result+".mp3"
+        #     filename = os.path.join(dirname,path) 
+        #     rand = [('starting '+result)]
+        #     msg = self.random_text(rand)
+        #     check_audio.check(msg)
+        #     #speakmodule.speak(rand,n,mixer)
+
+        #     time.sleep(5)
+        #     mixer.init()
+        #     mixer.music.load(filename)
+        #     mixer.music.play()
+        #     return True
+
+        # if message != ('stop music') and ('stop') in message:
+        #     query = message
+        #     stopwords = ['stop']
+        #     querywords = query.split()
+        #     resultwords  = [word for word in querywords if word.lower() not in stopwords]
+        #     result = ' '.join(resultwords)
+        #     os.system('taskkill /im ' + result + '.exe /f')
+        #     rand = [('stopping '+result)]
+        #     msg = self.random_text(rand)
+        #     check_audio.check(msg)
+        #     #speakmodule.speak(rand,n,mixer)
+        #     return True
