@@ -42,10 +42,12 @@ class Brain():
 			task = CC.check(cmd)
 			if task == True:
 				msg="What else i can do for you"
-				check_audio.check(msg)
+				#check_audio.check(msg)
+				print(msg)
 			if task == False:
 				msg="Task is Not Complete, Please Can U Say it Again!"
-				check_audio.check(msg)
+				#check_audio.check(msg)
+				print(msg)
 			
 	def voice_mode(self):
 		self.print_welcome()
@@ -68,10 +70,13 @@ class Brain():
 				task=CC.check(message)
 				if task == True:
 					msg="What else i can do for you"
-					check_audio.check(msg)
+					#check_audio.check(msg)
+					print(msg)
 				if task == False:
 					msg="Task is Not Complete, Please Can U Say it Again!"
-					check_audio.check(msg)
+					#check_audio.check(msg)
+					print(msg)
+
 
 			except sr.UnknownValueError:
 				print("$could not understand audio")

@@ -29,7 +29,6 @@ def main():
 		if mode[1][1:]=="remote":
 			msg="Initializing Remote Mode"
 			check_audio.check(msg)
-			audio_path=sq.select(msg)
 			start_remote_prompt()
 
 	except Exception:

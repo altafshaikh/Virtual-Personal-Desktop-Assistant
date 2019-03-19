@@ -39,6 +39,7 @@ class CheckCommand():
             rand = ['Wellcome to Jarvis virtual intelligence System. At your service sir.',
             'Hi, How are You?','At your service sir']
             msg = self.random_text(rand)
+            print("mein idhar hu")
             check_audio.check(msg)
             #speakmodule.speak(rand,n,mixer)
             time.sleep(5)
@@ -81,7 +82,7 @@ class CheckCommand():
             return True
 
 
-        if ('wifi') in message:  
+        if ('wi-fi') in message:  
             REMOTE_SERVER = "www.google.com"
             speakmodule.wifi()
             rand = ['We are connected']
@@ -138,19 +139,20 @@ class CheckCommand():
             msg = self.random_text(rand)
             check_audio.check(msg)
             #speakmodule.speak(rand,n,mixer)
-            time.sleep(5)
+            time.sleep(6)
 
             mixer.init()
             mixer.music.load(filename)
             mixer.music.play()
-
+            time.sleep(5)
+            #print("mein idhar hu")
             return True
 
         if ('pause') in message:
             mixer.music.pause()
             return True
 
-        if ('resume') in message:
+        if ('stop') in message:
             mixer.music.stop()
             return True
 
@@ -171,8 +173,8 @@ class CheckCommand():
             tim = strftime("%X", localtime())
             rand = [tim]
             msg = self.random_text(rand)
-            check_audio.check(msg)
-            #speakmodule.speak(rand,n,mixer)
+            #check_audio.check(msg)
+            speakmodule.speak(rand,n,mixer)
             return True
 
         if ("send mail") in message:
