@@ -1,0 +1,58 @@
+<html>
+<head>
+	<title>VPDA Remote</title>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/p5.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.4.5/addons/p5.dom.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+	<script src="/static/js/p5.speech.js"></script>
+	<script>
+	var myRec = new p5.SpeechRec(); // new P5.SpeechRec object
+	let text;
+	function setup(){
+		//graphics stuff:
+		createCanvas(800, 400);
+		background(255, 255, 255);
+		fill(0, 0, 0, 255);
+		instructions:
+		textSize(32);
+		textAlign(CENTER);
+		//text("say something", width/2, height/2);
+		myRec.onResult = showResult;
+		let continuous = true;
+		let interim = false;
+		myRec.start(continuous,interim);
+	}
+	function showResult(){
+		if(myRec.resultValue==true) {
+			background(192, 255, 192);
+			//text(myRec.resultString, width/2, height/2);
+			console.log(myRec.resultString);
+			text=myRec.resultString;
+			$("p").text(text);
+			var status = false;
+			
+			$.ajax({
+		    //url: "/employees/webapp/",
+		    url: "/commands/webapp/",
+		    type: "post", // or "get"
+		    //data:{'firstname':text,'lastname':status,'emp_id':"10001"},
+		    data:{'task':text,'done':status},
+		    //data:[],
+		    success: function(data) {
+		    	console.log(data);
+		     
+   		 }});
+
+
+		}
+	}
+</script>
+</head>
+<body>
+	<center>
+		<p></p>
+		<h3></h3>
+	</center>
+</body>
+</html>

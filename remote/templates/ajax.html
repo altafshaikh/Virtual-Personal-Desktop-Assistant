@@ -1,0 +1,18 @@
+// var ourRequest = new XMLHttpRequest();
+			// ourRequest.open("GET",'/employee');
+			// ourRequest.onload()=function(){
+			// 	var ourData = JSON.parse(ourRequest.reponseText);
+			// 	$("#json").text(ourRequest.reponseText);
+			// };
+			// ourRequest.send()
+
+
+	
+			$.ajax({
+		    url: "/employees",
+		    type: "get", // or "get"
+		    data: [],
+		    success: function(data) {
+		    	console.log(data[0]);
+		     
+   		 }});
