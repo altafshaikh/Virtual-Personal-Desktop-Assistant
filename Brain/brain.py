@@ -19,19 +19,20 @@ class Brain():
 	def print_welcome(self):
 		
 		welcome_message =  """
-		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		+++++++++++++++++++++  Welcome to V.P.D.A  +++++++++++++++++++++
-		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-		+                                                              +
-		+           I am J.A.R.V.I.S, How can I help You!              +
-		+                                                              +
-		++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	+++++++++++++++++++++  Welcome to V.P.D.A  +++++++++++++++++++++
+	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	+                                                              +
+	+           I am J.A.R.V.I.S, How can I help You!              +
+	+                                                              +
+	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 			"""
 		print (welcome_message)
 		msg = "Hello, I am jarvis How can i help you"
 		check_audio.check(msg)
 
 	def text_mode(self):
+		mode="text"
 		self.print_welcome()
 		msg="At Your Service Sir"
 		check_audio.check(msg)
@@ -39,7 +40,7 @@ class Brain():
 		while 1:
 			cmd = input("> ")
 			#print(cmd)
-			task = CC.check(cmd)
+			task = CC.check(cmd,mode)
 			if task == True:
 				msg="What else i can do for you"
 				#check_audio.check(msg)
@@ -50,6 +51,7 @@ class Brain():
 				print(msg)
 			
 	def voice_mode(self):
+		mode = "voice"
 		self.print_welcome()
 		msg="At Your Service Sir"
 		check_audio.check(msg)
@@ -61,13 +63,13 @@ class Brain():
 				audio = r.adjust_for_ambient_noise(source) 
 				print("Say something!")
 				audio = r.listen(source)
-				print(audio)
+				#print(audio)
 
 			try:
 				s = (r.recognize_google(audio))
 				message = (s.lower())
 				print (message)
-				task=CC.check(message)
+				task=CC.check(message,mode)
 				if task == True:
 					msg="What else i can do for you"
 					#check_audio.check(msg)
@@ -85,6 +87,7 @@ class Brain():
 		
 	def remote_mode(self):
 		pass
+		mode = "remote"
 		self.print_welcome()
 		
 

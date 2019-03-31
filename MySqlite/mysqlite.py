@@ -9,7 +9,7 @@ def create_table():
 			 AUDIO_PATH     TEXT     NOT NULL
 			 );''')
 	
-	print("Table created")
+	#print("Table created")
 	conn.commit()
 	conn.close()
 	return True
@@ -27,7 +27,7 @@ def insert(cmd,path):
             n=int(row[0])
     project=(str(n+1),cmd,path);
     cur.execute(sql, project)
-    print("Records Inserted successfully")
+    #print("Records Inserted successfully")
     conn.commit()
     conn.close()
 
@@ -38,10 +38,10 @@ def select(cmd):
 	cur.execute(query,(cmd,))
 	rows=cur.fetchall()
 	if rows==[]:
-		print("Is not available in table")
+		#print("Is not available in table")
 		return False
 	else:
-		print("Is available in table")
+		#print("Is available in table")
 		return rows[0][2]
 
 #create_table()

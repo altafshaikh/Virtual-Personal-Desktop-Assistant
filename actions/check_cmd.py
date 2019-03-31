@@ -1,5 +1,6 @@
 from time import localtime, strftime
 from pygame import mixer
+import pyscreenshot as ImageGrab
 import pyaudio
 import sys
 import os
@@ -9,10 +10,16 @@ import webbrowser
 import subprocess
 import glob
 import time
+import requests
 
 from actions import check_audio
 from actions import mail
+from actions import youtube
+import file_search
+from actions import screenshot
 from Voice import speakmodule
+from Ears import ears
+
 
 
 class CheckCommand():
@@ -24,7 +31,7 @@ class CheckCommand():
         text = random.choice(rand)
         return text
 
-    def check(self,message):
+    def check(self,message,mode):
         n=len(message)
         if ('goodbye') in message:                          
             rand = ['Goodbye Sir', 'Jarvis powering off in 3, 2, 1, 0',
@@ -39,14 +46,13 @@ class CheckCommand():
             rand = ['Wellcome to Jarvis virtual intelligence System. At your service sir.',
             'Hi, How are You?','At your service sir']
             msg = self.random_text(rand)
-            print("mein idhar hu")
             check_audio.check(msg)
             #speakmodule.speak(rand,n,mixer)
             time.sleep(5)
             return True
 
         if ('thanks') in message or ('tanks') in message or ('thank you') in message:
-            rand = ['You are wellcome', 'no problem',"With Plesure,Sir",
+            rand = ['You are wellcome', 'no problem',"With Pleasure,Sir",
             "Anytime at your service, sir"]
             msg = self.random_text(rand)
             check_audio.check(msg)
@@ -82,7 +88,7 @@ class CheckCommand():
             return True
 
 
-        if ('wi-fi') in message:  
+        if ('wi-fi') in message or ("check wi-fi") in message:  
             REMOTE_SERVER = "www.google.com"
             speakmodule.wifi()
             rand = ['We are connected']
@@ -103,9 +109,9 @@ class CheckCommand():
             return True
             
 
-        if ('google maps') in message:
+        if ('google maps') in message or ('google map') in message or ('maps') in message or ('map') in message:
             query = message
-            stopwords = ['google', 'maps']
+            stopwords = ['google', 'maps','map']
             querywords = query.split()
             resultwords  = [word for word in querywords if word.lower() not in stopwords]
             result = ' '.join(resultwords)
@@ -122,6 +128,7 @@ class CheckCommand():
             querywords = query.split()
             resultwords  = [word for word in querywords if word.lower() not in stopwords]
             result = ' '.join(resultwords)
+            print(result)
             rand = [('installing '+result)]
             msg = self.random_text(rand)
             check_audio.check(msg)
@@ -130,23 +137,53 @@ class CheckCommand():
             return True
 
         if ('music') in message:
-            dirname = os.path.dirname(__file__)
-            #change this if you are using windows
-            path=r"/root/Desktop/Jarvis/music/NaJa.mp3"
-            filename = os.path.join(dirname,path) 
-
             rand = ['playing music']
             msg = self.random_text(rand)
-            check_audio.check(msg)
-            #speakmodule.speak(rand,n,mixer)
-            time.sleep(6)
+            dirname = os.path.dirname(__file__)
+            if mode == "text":
+                name = input("Enter File Name To Be Played\n")
+                found = file_search.search(name)
+                path=r"/root/Desktop/Jarvis/music/"+name.lower()+".mp3"
+                if found :
+                    filename = os.path.join(dirname,path)
+                    check_audio.check(msg)
+                    #speakmodule.speak(rand,n,mixer)
+                    time.sleep(6)
 
-            mixer.init()
-            mixer.music.load(filename)
-            mixer.music.play()
-            time.sleep(5)
-            #print("mein idhar hu")
-            return True
+                    mixer.init()
+                    mixer.music.load(filename)
+                    mixer.music.play()
+                    time.sleep(5)
+                    return True
+                else:
+                    check_audio.check(msg)
+                    youtube.play(name)
+                    return True
+            if mode == "voice":
+                ok = True
+                while ok :
+                    name=ears.listen("Say Music Name")
+                    name=name.replace(" ","")
+                    confirm = input("Confirm Command Y/N \n")
+                    if confirm =='Y' or confirm == 'y':
+                        ok=False
+                found = file_search.search(name)
+                path=r"/root/Desktop/Jarvis/music/"+name.lower()+".mp3"
+                if found :
+                    filename = os.path.join(dirname,path)
+                    check_audio.check(msg)
+                    #speakmodule.speak(rand,n,mixer)
+                    time.sleep(6)
+
+                    mixer.init()
+                    mixer.music.load(filename)
+                    mixer.music.play()
+                    time.sleep(5)
+                    return True
+                else:
+                    check_audio.check(msg)
+                    youtube.play(name)
+                    return True
 
         if ('pause') in message:
             mixer.music.pause()
@@ -161,11 +198,11 @@ class CheckCommand():
             return True
 
         if ('shutdown') in message:
-            os.system("shutdown /s /t 1")
+            os.system("/sbin/shutdown now")
             return True
 
         if ('restart') in message:
-            os.system("shutdown /r /t 1")
+            os.system("/sbin/shutdown -r now")
             return True
             
            
@@ -178,58 +215,65 @@ class CheckCommand():
             return True
 
         if ("send mail") in message:
-            to = input("Enter Receiver Mail")
-            msg = input("Write Message")
-            subject = input("Enter Subject")
+            # ok = True
+            # while ok :
+            #     to=ears.listen("Say Receiver mail")
+            #     to=to.replace(" ","")
+            #     print(to)
+            #     confirm = input("Confirm Command Y/N \n")
+            #     if confirm =='Y' or confirm == 'y':
+            #         break
+
+            # while ok :
+            #     msg=ears.listen("Say Message to se Send")
+            #     #msg="".join(msg.replace(" ",""))
+            #     confirm = input("Confirm Command Y/N \n")
+            #     if confirm =='Y' or confirm == 'y':
+            #         break
+            # while ok :
+            #     subject=ears.listen("Say Subject")
+            #     confirm = input("Confirm Command Y/N \n")
+            #     if confirm =='Y' or confirm == 'y':
+            #         break
+
+            to = input("Enter Receiver Mail\n")
+            body = input("Write Message\n")
+            subject = input("Enter Subject\n")
 
             rand =["sending mail","please wait sending your mail"]
             msg = self.random_text(rand)
             check_audio.check(msg)
-            mail.send_mail(to,msg,subject)
+            mail.send_mail(to,body,subject)
 
             msg = "Your Mail Is Sent"
             check_audio.check(msg)
             time.sleep(5)
             return True
 
-        #if ('sleep mode') in message:
-        #     rand = ['good night']
-        #     msg = self.random_text(rand)
-        #     check_audio.check(msg)
-        #     #speakmodule.speak(rand,n,mixer)
-        #     os.system('rundll32.exe powrprof.dll,SetSuspendState 0,1,0')
-        #     return True
+        if ("take screenshot") in message:
+            im=ImageGrab.grab()
+            im.show()
+            return True
+        if ("search") in message:
+            query = message
+            stopwords = ['search']
+            querywords = query.split()
+            resultwords  = [word for word in querywords if word.lower() not in stopwords]
+            result = ' '.join(resultwords)
+            webbrowser.open("https://www.google.com/search?q="+result)
+            return True
 
-                # if message != ('start music') and ('start') in message:   
-        #     query = message
-        #     stopwords = ['start']
-        #     querywords = query.split()
-        #     resultwords  = [word for word in querywords if word.lower() not in stopwords]
-        #     result = ' '.join(resultwords)
-        #     dirname = os.path.dirname(__file__)
-        #     #change this if you are using windows
-        #     path=r"/root/Desktop/Jarvis/music/"+result+".mp3"
-        #     filename = os.path.join(dirname,path) 
-        #     rand = [('starting '+result)]
-        #     msg = self.random_text(rand)
-        #     check_audio.check(msg)
-        #     #speakmodule.speak(rand,n,mixer)
+        if ("create file") in message :
+            return True
 
-        #     time.sleep(5)
-        #     mixer.init()
-        #     mixer.music.load(filename)
-        #     mixer.music.play()
-        #     return True
+        if ("create directory") in message :
+            return True
+        if ("copy file") in message :
+            return True
+        if ("move file") in message :
+            return True
+        if ("delete file") in message :
+            return True
+        if ("delete directory") in message :
+            return True
 
-        # if message != ('stop music') and ('stop') in message:
-        #     query = message
-        #     stopwords = ['stop']
-        #     querywords = query.split()
-        #     resultwords  = [word for word in querywords if word.lower() not in stopwords]
-        #     result = ' '.join(resultwords)
-        #     os.system('taskkill /im ' + result + '.exe /f')
-        #     rand = [('stopping '+result)]
-        #     msg = self.random_text(rand)
-        #     check_audio.check(msg)
-        #     #speakmodule.speak(rand,n,mixer)
-        #     return True

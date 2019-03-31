@@ -31,8 +31,9 @@ def main():
 			check_audio.check(msg)
 			start_remote_prompt()
 
-	except Exception:
+	except IndexError:
 		usage()
+	
 
 def start_listening():
 	print("Voice Mode Activated")
