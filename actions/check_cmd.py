@@ -33,6 +33,7 @@ class CheckCommand():
 
     def check(self,message,mode):
         n=len(message)
+    
         if ('goodbye') in message:                          
             rand = ['Goodbye Sir', 'Jarvis powering off in 3, 2, 1, 0',
             'Bye']
@@ -43,6 +44,7 @@ class CheckCommand():
             sys.exit(1)
             
         if ('hello') in message or ('hi') in message:
+            print("i am here")
             rand = ['Wellcome to Jarvis virtual intelligence System. At your service sir.',
             'Hi, How are You?','At your service sir']
             msg = self.random_text(rand)

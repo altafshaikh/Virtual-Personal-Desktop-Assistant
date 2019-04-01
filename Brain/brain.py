@@ -2,6 +2,8 @@ from pygame import mixer
 import speech_recognition as sr
 import os
 import time
+import requests
+import json
 
 from actions.check_cmd import CheckCommand
 from actions import check_audio
@@ -86,9 +88,49 @@ class Brain():
 				print("Could not request results$; {0}".format(e))
 		
 	def remote_mode(self):
-		pass
 		mode = "remote"
 		self.print_welcome()
+		msg="fetching remote command"
+		check_audio.check(msg)
+		CC = CheckCommand()
+		
+		print("Fetching Commands.......")
+		while 1:
+			r = requests.get('http://localhost:8000/commands/webapp/')
+			response=json.loads(r.text)
+					
+			if response :
+				print("Commands fetched")
+				for cmd in response :
+					if cmd['done'] == 'false':
+						# commands.append(cmd['task'])
+						cmmd = cmd['task']
+						print(cmmd)
+						done = CC.check(cmmd,mode)
+						#time.sleep(15)
+						if done == True:
+							msg="Executing Next command"
+							#check_audio.check(msg)
+							print(msg)
+							cmd['done'] ="true"
+							r = requests.put('http://localhost:8000/commands/webapp/'+str(cmd['id'])+'/', json=cmd)
+							time.sleep(5)
+							#self.remote_mode()
+
+						if done == False:
+							msg="Task is Not Complete, Please Can U Say it Again!"
+							#check_audio.check(msg)
+							print(msg)
+
+
+
+				
+
+
+
+
+
+
 		
 
 	
