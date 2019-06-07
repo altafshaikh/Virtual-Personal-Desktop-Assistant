@@ -7,10 +7,8 @@ CONTRIBUTORS
 =======
 
    - Aachal Vartak
-   
     * [aachalvartak](https://github.com/aachalvartak)
     
    - Pratiksha Shetty
-   
     * [PratikshaShetty5618](https://github.com/PratikshaShetty5618)
   
