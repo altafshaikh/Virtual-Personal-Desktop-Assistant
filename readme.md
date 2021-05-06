@@ -38,9 +38,40 @@ VPDA inspired By Jarvis From Iron Man Movie. Virtual Personal Desktop Assistant(
 
 [![vpda text mode](https://img.youtube.com/vi/sIG-oHJt_ts/0.jpg)](https://youtu.be/sIG-oHJt_ts "vpda text mode")
 
-## Outputs
+## VPDA Outputs - Screenshots
 
+### Open Websites
+We can open any website by providing website name to our VPDA
 
+![](https://lh4.googleusercontent.com/HmVqUQI9ZcFnvpVnoukGSwYA3XDXPrbUxDODOUJsi3UPoNKxuL0NI0zhC87QzaUR2FLowLOpPcHy12nzXRhkl0nF8lPFhh3tuzrL_8xM)
+![](https://lh4.googleusercontent.com/FUUWzKJ-BMllkmRysH9loaEmRJTYVubifsx6Vr_pGef9kr_vSCOe4OFBeqZ-W589nBS_05c_d_8V8geEnf3WlrEcjAIQg_SlpxZNwMo0)
+
+### Google Maps
+We can open google maps and search any places.
+
+![](https://lh6.googleusercontent.com/QCNRFf5jzcEg_12H551mDoB9EGNZ0MdNqUj3osLfixV5VvOn4fLfFk7MKaS-_Mm6HtOJFLfjSIiPe3q82GdJfeeXnYsCAQXaOQAKVg1F)
+![](https://lh3.googleusercontent.com/GqhGcRbRpFyLjtgV2sOZSsB5unBiW7oXTFDx4W6V9flp2bHvDcdPHgYIWugFmKqbR_SMW54--9T6wFgpL6TfwOdGzZ_y1zpv4xhSJvuU)
+
+### Play Musics
+We can play any song by instructing our VPDA with the desired song name
+
+![](https://lh5.googleusercontent.com/c0TjlLrfVU3Aal4CwfVtQNS-ExHJVQCNps1Kj-6pQ7uJebzCcfgTIgV79RbbbxBVjd14XiIQ5byEVebEM-LyJ3bnu7Ri_6FzdsFKTQXe)
+![](https://lh5.googleusercontent.com/iwwxf_685n8vOOyr4wKXZgB0AbLD4OaxnP4omhmUT4SJGK7toxsPMTrSPUr3Ev6MGHNqF8B5i18v6ij8VRtsOJLHh9Kos-f9CQ0AUlp6)
+
+### Send Mail
+
+![](https://lh4.googleusercontent.com/QxdL4r0CNK_7_Eb6l_DeuGp9y7tmMzwe1sSS1gjYa9exlInXBT_tlL-w5-WN85AyRI3nUEVymN4pubf9Z2annEgyz4MnCDgdDRAztqe0)
+![](https://lh3.googleusercontent.com/qhOZYjfJMnMHyooF2vZLFRZC5FyMKAgMD_ldZkbtaG1r7Wb-pWP5OBu7qF4PW13uv3pUILCz24IoBB6-uPwQFj8Z3OL862qDbU2pgC6V)
+
+### Install Python Package
+We can install any python packages.
+
+![](https://lh6.googleusercontent.com/ImKi0gpqGP-0WdcWZ1Qiw7s5X6Vi4awqmb-VBmGxPMIgYOsxwpFPLgYJGPSSUVfDfbnHEl3ORMiADO_LlIaUpSHV0smrLYFv0kn3aug)
+
+### Taking Screenshot
+We can take screenshot of full screen by instructing VPDA.
+
+![](https://lh6.googleusercontent.com/-IDUjloPd3N7Zr37xJrTFVcoh8Uo-9cwXs2pdof4j8MkRR0diCk7BmyJGrx7-Cd1frgwqiVRJEAtUmVBHQ-PMoZ1TK2Tsraxdi0_qrvP)
 
 ## Contributers
 
