@@ -7,7 +7,7 @@ VPDA inspired By Jarvis From Iron Man Movie. Virtual Personal Desktop Assistant(
 
 ![Jarvis system design](https://lh6.googleusercontent.com/B6mDY44POTyDymPoR-xeqbg1npoJza03aI911VS1cK6z_S5sc9cEPNzCU7MKNmANSZ48LgZg7N4tZLBRYIy-DCqNmNEWIJqN3DS_1WRgKXSvTH7F0_7fN_hCZPADhMlqS-HH8uo9gkw)
 
-## Operates in 3 Modes
+## Operates in 3 Modes - Videos
 
 1. Remote Mode
 
