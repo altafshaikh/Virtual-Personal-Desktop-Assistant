@@ -7,12 +7,15 @@ VPDA inspired By Jarvis From Iron Man Movie. Virtual Personal Desktop Assistant(
 
 1. Remote Mode
 
-[vpda remote mode](https://youtu.be/RxSuULDya5I)
+[![vpda remote mode](https://img.youtube.com/vi/RxSuULDya5I/0.jpg)](https://youtu.be/RxSuULDya5I "vpda remote mode")
+
   
 2. Voice Mode
 
-[vpda voice mode](https://youtu.be/-qfaLjPo2LA)
+[![vpda voice mode](https://img.youtube.com/vi/-qfaLjPo2LA/0.jpg)](https://youtu.be/-qfaLjPo2LA "vpda voice mode")
+
 
 3. Text Mode
 
-[vpda text mode](https://youtu.be/sIG-oHJt_ts)
+[![vpda text mode](https://img.youtube.com/vi/sIG-oHJt_ts/0.jpg)](https://youtu.be/sIG-oHJt_ts "vpda text mode")
+
